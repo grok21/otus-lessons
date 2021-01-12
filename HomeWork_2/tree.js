@@ -18,40 +18,42 @@ const get_directories = base_directory => {
                                  .map(directoryName => path.basename(directoryName))
 }
 
-const tree = (base_directory, current_depth, max_depth) => {
+const tree = (base_directory, currentDepth, maxDepth) => {
     
     // Print base directory
-    let out_str = ""
-    for (let i = 0; i < current_depth; i++) 
-        out_str += "--"
-    console.log(out_str + path.basename(base_directory))
-    out_str = ""
+    let outStr = ""
+    for (let i = 0; i < currentDepth - 1; i++) 
+        outStr += "' "
+    outStr += "߅ "
+    console.log(outStr + path.basename(base_directory))
+    outStr = ""
 
     // If current depth is bigger than max then return
-    current_depth++
-    if (current_depth > max_depth) {
-        current_depth--
+    currentDepth++
+    if (currentDepth > maxDepth) {
+        currentDepth--
         return
     }
     
     // Print list of internal directories
     const directories = get_directories(base_directory)
     for (let i = 0; i < directories.length; i++) 
-        tree(path.join(base_directory, directories[i]), current_depth, max_depth)
+        tree(path.join(base_directory, directories[i]), currentDepth, maxDepth)
     
     // Print list of files in base directory
     const files = get_files(base_directory)
     if (files.length === 0) {
-        current_depth--
+        currentDepth--
         return 
     }
-    for (let i = 0; i < current_depth; i++) 
-        out_str += "--"
+    for (let i = 0; i < currentDepth - 1; i++) 
+        outStr += "' "
+    outStr += "߅ " 
     
     for (let i = 0; i < files.length; i++)
-        console.log(out_str + files[i])
+        console.log(outStr + files[i])
 
-    current_depth--
+    currentDepth--
     return
 }
 
@@ -61,10 +63,10 @@ if (base_directory === undefined) {
     return
 }
 
-const max_depth = args["d"] || args["depth"] || 1
-if (!Number.isInteger(max_depth)) {
+const maxDepth = args["d"] || args["depth"] || 1
+if (!Number.isInteger(maxDepth)) {
     console.log("ERROR: set correct depth")
     return
 }
 
-tree(base_directory, 0, max_depth)
+tree(base_directory, 0, maxDepth)
