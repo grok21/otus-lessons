@@ -18,11 +18,12 @@ const input2 = {
 let depth = 0
 function tree (input) {
     depth++
-    let out_str = ""
-    for (let i = 0; i < depth; i++) 
-        out_str += "--"
-    out_str += input["name"]
-    console.log(out_str)
+    let outStr = ""
+    for (let i = 0; i < depth - 1; i++) 
+        outStr += "' "
+    outStr += "߅ "
+    outStr += input["name"]
+    console.log(outStr)
     
     if (input["items"] === undefined) {
         depth--
