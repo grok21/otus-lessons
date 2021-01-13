@@ -1,0 +1,15 @@
+{
+  "name": "HomeWork_2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tree.js",
+  "scripts": {
+    "d2": "node tree.js ./ -d 2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "minimist": "^1.2.5"
+  }
+}
