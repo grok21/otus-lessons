@@ -14,8 +14,16 @@
 {{/if}}
 
 <div class="col s12">
-  <a class="btn" href="/courses/create">Создать новый урок</a>
-  <a class="btn" href="/courses/create">Редактировать курс</a>
-  <a class="btn red darken-1" href="/courses/create">Удалить курс</a>
+  <form action="/auth/register" method="POST">
+    <a class="btn" href="/courses/create">Создать новый урок</a>
+  </form>
+
+  <form action="/auth/register" method="PUT">
+    <a class="btn" href="/courses/create">Редактировать курс</a>
+  </form>
+
+  <form action="/auth/register" method="DELETE">
+    <a class="btn red darken-1" href="/courses/create">Удалить курс</a>
+  </form>
 </div>
 

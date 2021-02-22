@@ -17,8 +17,8 @@ router.post('/login', async (req, res) => {
       const isSame = candidate['password'] === password
 
       if (isSame) {
-        req.session.user = candidate
-        req.session.isAuthenticated = true
+        req.user = candidate
+        req.isAuthenticated = true
         res.redirect('/')
       } else {
         res.redirect('/auth/login')
