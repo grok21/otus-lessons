@@ -1,12 +1,21 @@
 <h1>{{course.title}}</h1>
+<h4>{{course.fullDescription}}</h4>
 
+
+{{#if course.lessons.length}}
 <ul class="collection with-header">
+  {{#each course.lessons}}
   <li class="collection-header"><h5>{{course.description}}</h5></li>
-  {{#if course.lessons.length}}
-    {{#each course.lessons}}
-    <li class="collection-item"><div><b>{{title}}</b> <br> {{shortDescription}} <a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-    {{/each}}
-  {{else}}
-    <p>Пока не создано ни одного урока...</p>
-  {{/if}}
+  <li class="collection-item"><div><b>{{title}}</b> <br> {{shortDescription}} <a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+  {{/each}}
 </ul>
+{{else}}
+  <p>Пока не создано ни одного урока...</p>
+{{/if}}
+
+<div class="col s12">
+  <a class="btn" href="/courses/create">Создать новый урок</a>
+  <a class="btn" href="/courses/create">Редактировать курс</a>
+  <a class="btn red darken-1" href="/courses/create">Удалить курс</a>
+</div>
+

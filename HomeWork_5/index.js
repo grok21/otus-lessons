@@ -1,8 +1,10 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
+const path = require('path')
 const mongoose = require('mongoose')
 const homeRoutes = require('./routes/home')
 const coursesRoutes = require('./routes/courses')
+const authRoutes = require('./routes/auth')
 
 mongoose.connect('mongodb://localhost/my-courses', {
     useNewUrlParser: true,
@@ -29,12 +31,14 @@ const hbs = exphbs.create({
 app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 app.set('views', 'views')
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(express.urlencoded({extended: true}))
 
 // Routes 
 app.use('/', homeRoutes)
 app.use('/courses', coursesRoutes)
+app.use('/auth', authRoutes)
 
 const PORT = process.env.PORT || 3000
 

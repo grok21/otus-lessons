@@ -60,6 +60,15 @@ router.get('/lesson', (req, res) => {
   res.render('lesson')
 })
 
+router.get('/lesson/create', (req, res) => {
+  res.render('createLesson')
+})
+
+router.post('/lesson/create', async (req, res) => {
+  console.log(req.body)
+  res.redirect(courses)
+})
+
 router.get('/:id', async (req, res) => {
   console.log(req.params)
 
