@@ -33,10 +33,31 @@ router.get('/', async (req, res) => {
   await course1.save()
   */
 
-  
   const courses = await Course.find().lean()
-
   res.render('courses', {courses})
+})
+
+router.get('/create', async (req, res) => {
+  res.render('createCourse')
+})
+
+router.post('/create', async (req, res) => {
+  console.log(req.body)
+
+  const {title, img, shortDescription, fullDescription} = req.body
+
+  const new_course = new Course({
+    title, img, shortDescription, fullDescription,
+    lessons: [], participants: [], owner: "zhukov@yandex.ru"
+  })
+
+  await new_course.save()
+
+  res.redirect('/courses')
+})
+
+router.get('/lesson', (req, res) => {
+  res.render('lesson')
 })
 
 router.get('/:id', async (req, res) => {
@@ -47,6 +68,13 @@ router.get('/:id', async (req, res) => {
 
   //console.log(course)
   res.render('course', {course})
+})
+
+
+
+router.post('/lesson', (req, res) => {
+  console.log(req.body)
+  res.redirect('/courses/lesson')
 })
 
 module.exports = router

@@ -1,17 +1,10 @@
 <h1>{{course.title}}</h1>
 
-<iframe width="560" 
-        height="315" 
-        src="https://www.youtube.com/embed/MTSxSNnwUCQ" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
-
 <ul class="collection with-header">
   <li class="collection-header"><h5>{{course.description}}</h5></li>
   {{#if course.lessons.length}}
     {{#each course.lessons}}
-    <li class="collection-item"><div>{{title}} <br> {{shortDescription}} <a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+    <li class="collection-item"><div><b>{{title}}</b> <br> {{shortDescription}} <a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
     {{/each}}
   {{else}}
     <p>Пока не создано ни одного урока...</p>

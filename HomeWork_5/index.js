@@ -30,6 +30,8 @@ app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 app.set('views', 'views')
 
+app.use(express.urlencoded({extended: true}))
+
 // Routes 
 app.use('/', homeRoutes)
 app.use('/courses', coursesRoutes)

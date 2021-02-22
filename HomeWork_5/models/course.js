@@ -5,7 +5,11 @@ const courseSchema = new Schema({
       type: String, 
       required: true
   },
-  description: {
+  shortDescription: {
+    type: String, 
+    required: true
+  },
+  fullDescription: {
     type: String, 
     required: true
   },

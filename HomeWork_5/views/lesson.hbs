@@ -1,0 +1,38 @@
+<h1>Course 1</h1>
+<h4>Урок 1</h4>
+
+<iframe width="560" 
+        height="315" 
+        src="https://www.youtube.com/embed/MTSxSNnwUCQ" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+
+<h6>fullDescription</h6>
+<h6>&nbsp;</h6>
+
+<ul class="collection">
+  <li class="collection-item avatar">
+    <i class="material-icons circle green">insert_chart</i>
+    <span class="title"><b>Name</b></span>
+    <p>Comment</p>
+    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+  </li>
+  <li class="collection-item avatar">
+    <i class="material-icons circle red">play_arrow</i>
+    <span class="title"><b>Title</b></span>
+    <p>First Line</p>
+    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+  </li>
+</ul>
+
+<div class="col s12">
+  <form action="/courses/lesson" method="POST">
+      <div class="input-field col s12">
+        <input id="comment" name="comment" type="text" class="validate" required>
+        <label for="comment">Напишите комментарий</label>
+        <span class="helper-text" data-error="Введите комментарий"></span>
+      </div>
+      <button type="submit" class="btn">Комментировать</button>
+  </form>
+</div>
