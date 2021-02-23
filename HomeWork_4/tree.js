@@ -1,6 +1,5 @@
 const fs = require('fs')
 const path = require('path')
-const args = require('minimist')(process.argv.slice(2));
 
 const getFiles = baseDirectory => { 
     const isFile = fileName => fs.lstatSync(fileName).isFile()
@@ -26,7 +25,6 @@ const tree = (baseDirectory, currentDepth, maxDepth, result = {outStr: ""}) => {
         outStr += "' "
     outStr += "߅ "
     result.outStr += (outStr + path.basename(baseDirectory) + "\n")
-    //console.log(outStr + path.basename(baseDirectory))
     outStr = ""
 
     // If current depth is bigger than max then return
@@ -51,31 +49,11 @@ const tree = (baseDirectory, currentDepth, maxDepth, result = {outStr: ""}) => {
         outStr += "' "
     outStr += "߅ " 
     
-    for (let i = 0; i < files.length; i++) {
-        //console.log(outStr + files[i])
+    for (let i = 0; i < files.length; i++) 
         result.outStr += (outStr + files[i] + "\n")
-    }
         
     currentDepth--
     return
 }
-
-/*
-const baseDirectory = args["_"][0]
-if (baseDirectory === undefined) {
-    console.log("ERROR: set base directory")
-    return
-}
-
-const maxDepth = args["d"] || args["depth"] || 1
-if (!Number.isInteger(maxDepth)) {
-    console.log("ERROR: set correct depth")
-    return
-}
-*/
-
-//const fileHierarchy = { outStr: "" }
-//tree(baseDirectory, 0, maxDepth, fileHierarchy) 
-//console.log(fileHierarchy.outStr)
 
 module.exports = tree
