@@ -18,14 +18,15 @@ const getDirectories = baseDirectory => {
                                  .map(directoryName => path.basename(directoryName))
 }
 
-const tree = (baseDirectory, currentDepth, maxDepth) => {
+const tree = (baseDirectory, currentDepth, maxDepth, result = {outStr: ""}) => {
     
     // Print base directory
     let outStr = ""
     for (let i = 0; i < currentDepth - 1; i++) 
         outStr += "' "
     outStr += "߅ "
-    console.log(outStr + path.basename(baseDirectory))
+    result.outStr += (outStr + path.basename(baseDirectory) + "\n")
+    //console.log(outStr + path.basename(baseDirectory))
     outStr = ""
 
     // If current depth is bigger than max then return
@@ -38,7 +39,7 @@ const tree = (baseDirectory, currentDepth, maxDepth) => {
     // Print list of internal directories
     const directories = getDirectories(baseDirectory)
     for (let i = 0; i < directories.length; i++) 
-        tree(path.join(baseDirectory, directories[i]), currentDepth, maxDepth)
+        tree(path.join(baseDirectory, directories[i]), currentDepth, maxDepth, result)
     
     // Print list of files in base directory
     const files = getFiles(baseDirectory)
@@ -50,13 +51,16 @@ const tree = (baseDirectory, currentDepth, maxDepth) => {
         outStr += "' "
     outStr += "߅ " 
     
-    for (let i = 0; i < files.length; i++)
-        console.log(outStr + files[i])
-
+    for (let i = 0; i < files.length; i++) {
+        //console.log(outStr + files[i])
+        result.outStr += (outStr + files[i] + "\n")
+    }
+        
     currentDepth--
     return
 }
 
+/*
 const baseDirectory = args["_"][0]
 if (baseDirectory === undefined) {
     console.log("ERROR: set base directory")
@@ -68,5 +72,10 @@ if (!Number.isInteger(maxDepth)) {
     console.log("ERROR: set correct depth")
     return
 }
+*/
 
-tree(baseDirectory, 0, maxDepth)
+//const fileHierarchy = { outStr: "" }
+//tree(baseDirectory, 0, maxDepth, fileHierarchy) 
+//console.log(fileHierarchy.outStr)
+
+module.exports = tree

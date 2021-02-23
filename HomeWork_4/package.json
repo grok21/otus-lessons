@@ -1,9 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "d2": "node tree.js ./ -d 2"
+    "d2": "node tree.js ./ -d 2",
+    "test": "jest"
   },
   "dependencies": {
+    "jest": "^26.6.3",
     "minimist": "^1.2.5"
   }
 }
