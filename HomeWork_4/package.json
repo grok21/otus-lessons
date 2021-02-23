@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "scripts": {
+    "d2": "node tree.js ./ -d 2"
+  },
+  "dependencies": {
+    "minimist": "^1.2.5"
+  }
+}
