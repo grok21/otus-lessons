@@ -21,7 +21,7 @@ const tree = (baseDirectory, currentDepth, maxDepth, result = {outStr: ""}) => {
     
     // Print base directory
     let outStr = ""
-    for (let i = 0; i < currentDepth - 1; i++) 
+    for (let i = 0; i < currentDepth; i++) 
         outStr += "' "
     outStr += "߅ "
     result.outStr += (outStr + path.basename(baseDirectory) + "\n")
@@ -45,10 +45,10 @@ const tree = (baseDirectory, currentDepth, maxDepth, result = {outStr: ""}) => {
         currentDepth--
         return 
     }
-    for (let i = 0; i < currentDepth - 1; i++) 
+    for (let i = 0; i < currentDepth; i++) 
         outStr += "' "
     outStr += "߅ " 
-    
+
     for (let i = 0; i < files.length; i++) 
         result.outStr += (outStr + files[i] + "\n")
         
