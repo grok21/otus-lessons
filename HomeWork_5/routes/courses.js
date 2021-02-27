@@ -33,11 +33,15 @@ router.get('/', async (req, res) => {
   await course1.save()
   */
 
-  const courses = await Course.find().lean()
-  res.render('courses', {courses})
+  try {
+    const courses = await Course.find().lean()
+    res.render('courses', {courses})
+  } catch (e) {
+    console.log(e)
+  }
 })
 
-router.get('/create', async (req, res) => {
+router.get('/create', (req, res) => {
   res.render('createCourse')
 })
 
@@ -51,26 +55,15 @@ router.post('/create', async (req, res) => {
     lessons: [], participants: [], owner: "zhukov@yandex.ru"
   })
 
-  await new_course.save()
-
-  res.redirect('/courses')
-})
-
-router.get('/lesson', (req, res) => {
-  res.render('lesson')
-})
-
-router.get('/lesson/create', (req, res) => {
-  res.render('createLesson')
-})
-
-router.post('/lesson/create', async (req, res) => {
-  console.log(req.body)
-  res.redirect(courses)
+  try {
+    await new_course.save()
+    res.redirect('/courses')
+  } catch (e) {
+    console.log(e)
+  }
 })
 
 router.get('/:id', async (req, res) => {
-  console.log(req.params)
 
   const {id} = req.params
   const course = await Course.findById({_id: id}).lean()
@@ -79,11 +72,45 @@ router.get('/:id', async (req, res) => {
   res.render('course', {course})
 })
 
+router.get('/:id/edit', async (req, res) => {
+  
+  const {id} = req.params
 
-
-router.post('/lesson', (req, res) => {
-  console.log(req.body)
-  res.redirect('/courses/lesson')
+  try {
+    const course = await Course.findById({_id: id}).lean()
+    res.render('editCourse', {id})
+  } catch (e) {
+    console.log(e)
+  }
 })
+
+router.post('/:id/edit', async (req, res) => {
+  const {id} = req.params
+  
+  try {
+    const course = await Course.findById({_id: id})
+    
+    Object.assign(course, req.body)
+    await course.save()
+
+    res.redirect('/courses')
+  } catch (e) {
+    console.log(e)
+  }
+})
+
+router.delete('/:id/edit', async (req, res) => {
+  const {id} = req.params
+  console.log("I'm in DELETE")
+
+  try {
+    await Course.deleteOne({_id: id})
+    res.redirect('/courses')
+  } catch (e) {
+    console.log(e)
+  }
+  //const course = await Course.findById({_id: id}).lean()
+})
+
 
 module.exports = router

@@ -13,17 +13,4 @@
   <p>Пока не создано ни одного урока...</p>
 {{/if}}
 
-<div class="col s12">
-  <form action="/auth/register" method="POST">
-    <a class="btn" href="/courses/create">Создать новый урок</a>
-  </form>
-
-  <form action="/auth/register" method="PUT">
-    <a class="btn" href="/courses/create">Редактировать курс</a>
-  </form>
-
-  <form action="/auth/register" method="DELETE">
-    <a class="btn red darken-1" href="/courses/create">Удалить курс</a>
-  </form>
-</div>
-
+<a class="btn" href="/courses/{{course._id}}/edit">Редактировать курс</a>

@@ -1,0 +1,35 @@
+<h1>Редактировать курс</h1>
+<h4>{{id}}</h4>
+
+<form action="/courses/{{id}}/edit" method="POST">
+  <div class="input-field">
+    <input id="title" name="title" type="text" class="validate" required>
+    <label for="title">Название курса</label>
+    <span class="helper-text" data-error="Введите название курса"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="img" name="img" type="text" class="validate" required>
+    <label for="img">Ссылка на картинку</label>
+    <span class="helper-text" data-error="Введите ссылку на картинку"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="shortDescription" name="shortDescription" type="text" class="validate" required>
+    <label for="shortDescription">Краткое описание</label>
+    <span class="helper-text" data-error="Введите краткое описание"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="fullDescription" name="fullDescription" type="text" class="validate" required>
+    <label for="fullDescription">Полное описание</label>
+    <span class="helper-text" data-error="Введите полное описание"></span>
+  </div>
+
+  <button class="btn">Изменить</button>
+</form>
+
+<form action="/courses/{{id}}/edit" method="DELETE">
+  <h6>&nbsp;</h6>
+  <button class="btn red darken-1">Удалить курс</button>
+</form>
