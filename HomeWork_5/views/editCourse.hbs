@@ -1,7 +1,8 @@
 <h1>Редактировать курс</h1>
 <h4>{{id}}</h4>
 
-<form action="/courses/{{id}}/edit" method="POST">
+
+<form id="editCoursePut">
   <div class="input-field">
     <input id="title" name="title" type="text" class="validate" required>
     <label for="title">Название курса</label>
@@ -14,7 +15,7 @@
     <span class="helper-text" data-error="Введите ссылку на картинку"></span>
   </div>
 
-  <div class="input-field">
+  <div class="input-field" id="shortDescription">
     <input id="shortDescription" name="shortDescription" type="text" class="validate" required>
     <label for="shortDescription">Краткое описание</label>
     <span class="helper-text" data-error="Введите краткое описание"></span>
@@ -25,11 +26,16 @@
     <label for="fullDescription">Полное описание</label>
     <span class="helper-text" data-error="Введите полное описание"></span>
   </div>
-
-  <button class="btn">Изменить</button>
+  <input type="hidden" name="id" value="{{id}}">
+  <button type="submit" class="btn">Изменить</button>
+</form>
+  
+<h6>&nbsp;</h6>
+<form id="editCourseDelete">
+  <input type="hidden" name="id" value="{{id}}">
+  <button type="submit" class="btn red darken-1 js-remove">Удалить курс</button>
 </form>
 
-<form action="/courses/{{id}}/edit" method="DELETE">
-  <h6>&nbsp;</h6>
-  <button class="btn red darken-1">Удалить курс</button>
-</form>
+
+
+

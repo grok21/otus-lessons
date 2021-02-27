@@ -73,7 +73,6 @@ router.get('/:id', async (req, res) => {
 })
 
 router.get('/:id/edit', async (req, res) => {
-  
   const {id} = req.params
 
   try {
@@ -84,24 +83,29 @@ router.get('/:id/edit', async (req, res) => {
   }
 })
 
-router.post('/:id/edit', async (req, res) => {
+router.put('/:id/edit', async (req, res) => {
   const {id} = req.params
-  
+
+  console.log("I am in PUT")
+
+  console.log(req.body)
+  //console.log(req)
+  /*
   try {
     const course = await Course.findById({_id: id})
     
     Object.assign(course, req.body)
     await course.save()
 
-    res.redirect('/courses')
+    res.redirect('/courses/:id')
   } catch (e) {
     console.log(e)
   }
+  */
 })
 
 router.delete('/:id/edit', async (req, res) => {
   const {id} = req.params
-  console.log("I'm in DELETE")
 
   try {
     await Course.deleteOne({_id: id})
@@ -109,8 +113,6 @@ router.delete('/:id/edit', async (req, res) => {
   } catch (e) {
     console.log(e)
   }
-  //const course = await Course.findById({_id: id}).lean()
 })
-
 
 module.exports = router
