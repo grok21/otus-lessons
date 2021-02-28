@@ -6,7 +6,7 @@ editCoursePut.onsubmit = async (e) => {
   for (let input of form.entries())
     send[`${input[0]}`] = input[1]
   
-  fetch(`/courses/${send['id']}/edit`, {
+  fetch(`/courses/${form.get('id')}/edit`, {
     method: 'PUT',
     body: JSON.stringify(send), 
     headers: {

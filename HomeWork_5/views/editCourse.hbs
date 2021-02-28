@@ -1,5 +1,5 @@
 <h1>Редактировать курс</h1>
-<h4>{{id}}</h4>
+<h4>{{courseId}}</h4>
 
 
 <form id="editCoursePut">
@@ -26,13 +26,13 @@
     <label for="fullDescription">Полное описание</label>
     <span class="helper-text" data-error="Введите полное описание"></span>
   </div>
-  <input type="hidden" name="id" value="{{id}}">
+  <input type="hidden" name="id" value="{{courseId}}">
   <button type="submit" class="btn">Изменить</button>
 </form>
   
 <h6>&nbsp;</h6>
 <form id="editCourseDelete">
-  <input type="hidden" name="id" value="{{id}}">
+  <input type="hidden" name="id" value="{{courseId}}">
   <button type="submit" class="btn red darken-1 js-remove">Удалить курс</button>
 </form>
 

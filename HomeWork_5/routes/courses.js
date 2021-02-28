@@ -63,52 +63,49 @@ router.post('/create', async (req, res) => {
   }
 })
 
-router.get('/:id', async (req, res) => {
-
-  const {id} = req.params
-  const course = await Course.findById({_id: id}).lean()
-
-  //console.log(course)
-  res.render('course', {course})
-})
-
-router.get('/:id/edit', async (req, res) => {
-  const {id} = req.params
+router.get('/:courseId', async (req, res) => {
+  const {courseId} = req.params
 
   try {
-    const course = await Course.findById({_id: id}).lean()
-    res.render('editCourse', {id})
+    const course = await Course.findById({_id: courseId}).lean()
+    res.render('course', {course})
   } catch (e) {
     console.log(e)
   }
 })
 
-router.put('/:id/edit', async (req, res) => {
-  const {id} = req.params
+router.get('/:courseId/edit', async (req, res) => {
+  const {courseId} = req.params
 
-  console.log("I am in PUT")
+  try {
+    const course = await Course.findById({_id: courseId}).lean()
+    res.render('editCourse', {courseId})
+  } catch (e) {
+    console.log(e)
+  }
+})
 
-  console.log(req.body)
-  //console.log(req)
-  /*
+router.put('/:courseId/edit', async (req, res) => {
+  const {courseId} = req.params
+  delete req.body["id"]
+  
   try {
     const course = await Course.findById({_id: id})
     
     Object.assign(course, req.body)
     await course.save()
 
-    res.redirect('/courses/:id')
+    res.redirect(`/courses/${courseId}`)
   } catch (e) {
     console.log(e)
   }
-  */
 })
 
-router.delete('/:id/edit', async (req, res) => {
-  const {id} = req.params
+router.delete('/:courseId/edit', async (req, res) => {
+  const {courseId} = req.params
 
   try {
-    await Course.deleteOne({_id: id})
+    await Course.deleteOne({_id: courseId})
     res.redirect('/courses')
   } catch (e) {
     console.log(e)
