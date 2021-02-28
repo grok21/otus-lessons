@@ -20,7 +20,8 @@ router.get('/', async (req, res) => {
   /*
   const course1 = new Course({
     title: "Course 1",
-    description: "Amazing course",
+    shortDescription: "Amazing course",
+    fullDescription: "Very amazing course",
     img: "https://habrastorage.org/webt/xc/4n/a1/xc4na1sca8xlufsjkj3yyo1z9m8.jpeg", 
     lessons: [{title: "Занятие 1", shortDescription: "В этом занятии мы настроим окружение", fullDescription: "fullDescription", video: "video"}, 
               {title: "Занятие 2", shortDescription: "В этом занятии мы установим node и npm", fullDescription: "fullDescription", video: "video"}, 
@@ -79,7 +80,7 @@ router.get('/:courseId/edit', async (req, res) => {
 
   try {
     const course = await Course.findById({_id: courseId}).lean()
-    res.render('editCourse', {courseId})
+    res.render('editCourse', {course})
   } catch (e) {
     console.log(e)
   }
@@ -110,6 +111,36 @@ router.delete('/:courseId/edit', async (req, res) => {
   } catch (e) {
     console.log(e)
   }
+})
+
+router.get('/:courseId/lessons/:lessonId', async (req, res) => {
+  console.log("I am in GET1")
+  res.render('lesson')
+})
+
+router.get('/:courseId/edit/lessons/create', async (req, res) => {
+  const {courseId} = req.params
+  console.log(req.body)
+  res.render('createLesson', {courseId})
+})
+
+router.post('/:courseId/edit/lessons/create', async (req, res) => {
+  res.render('createLesson')
+})
+
+router.get('/:courseId/lessons/:lessonId/edit', async (req, res) => {
+  console.log("I am in GET2")
+  res.render('lesson')
+})
+
+router.put('/:courseId/lessons/:lessonId/edit', async (req, res) => {
+  console.log("I am in PUT")
+  res.render('lesson')
+})
+
+router.delete('/:courseId/lessons/:lessonId/edit', async (req, res) => {
+  console.log("I am DELETE")
+  res.render('lesson')
 })
 
 module.exports = router

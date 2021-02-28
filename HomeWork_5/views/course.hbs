@@ -1,16 +1,30 @@
 <h1>{{course.title}}</h1>
-<h4>{{course.fullDescription}}</h4>
+<h6>{{course.fullDescription}}</h6>
 
+<h6>{{course._id}}</h6>
+<h6>&nbsp;</h6>
 
+<h5>Уроки</h5>
 {{#if course.lessons.length}}
-<ul class="collection with-header">
-  {{#each course.lessons}}
-  <li class="collection-header"><h5>{{course.description}}</h5></li>
-  <li class="collection-item"><div><b>{{title}}</b> <br> {{shortDescription}} <a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-  {{/each}}
-</ul>
+  <table>
+    <thead>
+      <th>Название</th>
+      <th>Описание</th>
+      <th>Ссылка</th>
+    </thead>
+    <tbody>
+      {{#each course.lessons}}
+        <tr>
+          <td>{{title}}</td>
+          <td>{{shortDescription}}</td>
+          <td><a class="btn" href="/courses/{{@root.course._id}}/lessons/{{_id}}">Перейти</a></td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
 {{else}}
   <p>Пока не создано ни одного урока...</p>
 {{/if}}
 
+<h6>&nbsp;</h6>
 <a class="btn" href="/courses/{{course._id}}/edit">Редактировать курс</a>

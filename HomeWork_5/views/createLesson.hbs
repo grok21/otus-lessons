@@ -1,6 +1,6 @@
 <h1>Создать новый урок</h1>
 
-<form action="courses/lesson/create" method="POST">
+<form action="/courses/{{courseId}}/edit/lessons/create" method="POST">
   <div class="input-field">
     <input id="title" name="title" type="text" class="validate" required>
     <label for="title">Название урока</label>
@@ -25,5 +25,5 @@
     <span class="helper-text" data-error="Введите полное описание"></span>
   </div>
 
-  <button class="btn">Создать урок</button>
+  <button type="submit" class="btn">Создать урок</button>
 </form>
