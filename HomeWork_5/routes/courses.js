@@ -91,7 +91,7 @@ router.put('/:courseId/edit', async (req, res) => {
   delete req.body["id"]
   
   try {
-    const course = await Course.findById({_id: id})
+    const course = await Course.findById({_id: courseId})
     
     Object.assign(course, req.body)
     await course.save()
@@ -113,11 +113,6 @@ router.delete('/:courseId/edit', async (req, res) => {
   }
 })
 
-router.get('/:courseId/lessons/:lessonId', async (req, res) => {
-  console.log("I am in GET1")
-  res.render('lesson')
-})
-
 router.get('/:courseId/edit/lessons/create', async (req, res) => {
   const {courseId} = req.params
   console.log(req.body)
@@ -125,16 +120,52 @@ router.get('/:courseId/edit/lessons/create', async (req, res) => {
 })
 
 router.post('/:courseId/edit/lessons/create', async (req, res) => {
-  res.render('createLesson')
+  const {courseId} = req.params
+  
+  try {
+    const course = await Course.findById({_id: courseId})
+    course["lessons"].push(req.body)
+    await course.save()
+
+    res.redirect(`/courses/${courseId}`)
+  } catch (e) {
+    console.log(e)
+  }
+})
+
+router.get('/:courseId/lessons/:lessonId', async (req, res) => {
+  const {courseId, lessonId} = req.params
+  
+  try {
+    const course = await Course.findById({_id: courseId}).lean()
+
+    const neededLesson = course["lessons"].filter(lesson => lesson["_id"] == lessonId)
+    const lesson = neededLesson[0]
+  
+    res.render('lesson', {lesson, course})
+  } catch (e) {
+    console.log(e)
+  }
 })
 
 router.get('/:courseId/lessons/:lessonId/edit', async (req, res) => {
-  console.log("I am in GET2")
-  res.render('lesson')
+  const {courseId, lessonId} = req.params
+  
+  try {
+    const course = await Course.findById({_id: courseId}).lean()
+
+    const neededLesson = course["lessons"].filter(lesson => lesson["_id"] == lessonId)
+    const lesson = neededLesson[0]
+  
+    res.render('editLesson', {lesson, courseId})
+  } catch (e) {
+    console.log(e)
+  }
 })
 
 router.put('/:courseId/lessons/:lessonId/edit', async (req, res) => {
   console.log("I am in PUT")
+  console.log(req.body)
   res.render('lesson')
 })
 

@@ -1,14 +1,14 @@
-<h1>Course 1</h1>
-<h4>Урок 1</h4>
+<h1>{{course.title}}</h1>
+<h4>{{lesson.title}}</h4>
 
 <iframe width="560" 
         height="315" 
-        src="https://www.youtube.com/embed/MTSxSNnwUCQ" 
+        src="{{lesson.video}}" 
         frameborder="0" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 </iframe>
 
-<h6>fullDescription</h6>
+<h6>{{lesson.fullDescription}}</h6>
 <h6>&nbsp;</h6>
 
 <ul class="collection">
@@ -36,3 +36,4 @@
       <button type="submit" class="btn">Комментировать</button>
   </form>
 </div>
+<h6>&nbsp;</h6>

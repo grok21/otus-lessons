@@ -34,6 +34,47 @@ editCourseDelete.onsubmit = async (e) => {
   })
 }
 
+editLessonPut.onsubmit = async (e) => {
+  e.preventDefault();
+  const form = new FormData(editLessonPut)
+  console.log("AAAAAAAAAAAA")
+  let send = {}
+
+  for (let input of form.entries())
+    send[`${input[0]}`] = input[1]
+
+  console.log(send)
+
+  while(1) {}
+  
+  fetch(`/courses/${form.get('courseId')}/lessons/${form.get('lessonId')}/edit`, {
+    method: 'PUT',
+    body: JSON.stringify(send), 
+    headers: {
+      'Content-type': 'application/json'
+    }
+  }).then(res => {
+    if (res.redirected) {
+      document.location = res.url
+    }
+  })
+    .catch(e => console.log(e))
+}
+
+editLessonDelete.onsubmit = async (e) => {
+  e.preventDefault();
+
+  const form = new FormData(editLessonDelete)
+
+  fetch(`/courses/${form.get('id')}/edit`, {
+    method: 'delete'
+  }).then(res => {
+    if (res.redirected) {
+      document.location = res.url
+    }
+  })
+}
+
 /*
 if ($editCourse) {
   $editCourse.addEventListener('click', event => {
