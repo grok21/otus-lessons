@@ -1,0 +1,29 @@
+<h1>Создать новый урок</h1>
+
+<form action="/courses/{{courseId}}/edit/lessons/create" method="POST">
+  <div class="input-field">
+    <input id="title" name="title" type="text" class="validate" required>
+    <label for="title">Название урока</label>
+    <span class="helper-text" data-error="Введите название урока"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="video" name="video" type="text" class="validate" required>
+    <label for="video">Ссылка на видео</label>
+    <span class="helper-text" data-error="Введите ссылку на видео"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="shortDescription" name="shortDescription" type="text" class="validate" required>
+    <label for="shortDescription">Краткое описание</label>
+    <span class="helper-text" data-error="Введите краткое описание"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="fullDescription" name="fullDescription" type="text" class="validate" required>
+    <label for="fullDescription">Полное описание</label>
+    <span class="helper-text" data-error="Введите полное описание"></span>
+  </div>
+
+  <button type="submit" class="btn">Создать урок</button>
+</form>

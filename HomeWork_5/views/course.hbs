@@ -1,0 +1,28 @@
+<h1>{{course.title}}</h1>
+<h6>{{course.fullDescription}}</h6>
+<h6>&nbsp;</h6>
+
+<h5>Уроки</h5>
+{{#if course.lessons.length}}
+  <table>
+    <thead>
+      <th>Название</th>
+      <th>Описание</th>
+      <th>Ссылка</th>
+    </thead>
+    <tbody>
+      {{#each course.lessons}}
+        <tr>
+          <td>{{title}}</td>
+          <td>{{shortDescription}}</td>
+          <td><a class="btn" href="/courses/{{@root.course._id}}/lessons/{{_id}}">Перейти</a></td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{else}}
+  <p>Пока не создано ни одного урока...</p>
+{{/if}}
+
+<h6>&nbsp;</h6>
+<a class="btn" href="/courses/{{course._id}}/edit">Редактировать курс</a>

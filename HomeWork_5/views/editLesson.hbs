@@ -1,0 +1,38 @@
+<h1>Редактировать урок "{{lesson.title}}"</h1>
+
+<form id="editLessonPut">
+  <div class="input-field">
+    <input id="title" name="title" type="text" class="validate" required>
+    <label for="title">{{lesson.title}}</label>
+    <span class="helper-text" data-error="Введите название урока"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="video" name="video" type="text" class="validate" required>
+    <label for="video">{{lesson.video}}</label>
+    <span class="helper-text" data-error="Введите ссылку на видео"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="shortDescription" name="shortDescription" type="text" class="validate" required>
+    <label for="shortDescription">{{lesson.shortDescription}}</label>
+    <span class="helper-text" data-error="Введите краткое описание"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="fullDescription" name="fullDescription" type="text" class="validate" required>
+    <label for="fullDescription">{{lesson.fullDescription}}</label>
+    <span class="helper-text" data-error="Введите полное описание"></span>
+  </div>
+  <input type="hidden" name="lessonId" value="{{lesson._id}}">
+  <input type="hidden" name="courseId" value="{{courseId}}">
+  <button type="submit" class="btn">Изменить</button>
+</form>
+
+<h6>&nbsp;</h6>
+<form id="editLessonDelete">
+  <input type="hidden" name="lessonId" value="{{lesson._id}}">
+  <input type="hidden" name="courseId" value="{{courseId}}">
+  <button type="submit" class="btn red darken-1">Удалить урок</button>
+</form>
+<h6>&nbsp;</h6>
