@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <title>Demo</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io.connect('http://localhost:3000')
+
+    socket.on('news', (data) => {
+      console.log(data)
+      document.write(data.greeting)
+      socket.emit('greeting', {response: "data received!"})
+    })
+
+  </script>
+</head>
+<body>
+  
+</body>
+</html>
