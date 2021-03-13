@@ -1,8 +1,10 @@
-const httpServer = require('http').createServer(handler)
+//const httpServer = require('http').createServer(handler)
+const httpServer = require('http').createServer()
 const io = require('socket.io')(httpServer)
 const fs = require('fs')
 const path = require('path')
 
+/*
 function handler(req, res) {
   fs.readFile(path.join(__dirname, 'index.html'), 
   function (err, data) {
@@ -15,6 +17,7 @@ function handler(req, res) {
     res.end(data)
   })
 }
+*/
 
 io.on('connection', (socket) => {
   socket.emit('news', { greeting: "Hello socket.io"})
