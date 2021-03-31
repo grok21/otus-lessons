@@ -1,7 +1,13 @@
-const io = require("socket.io-client")
-const socket = io.connect('http://localhost:3000')
+require('regenerator-runtime/runtime')
 
 console.log("Service worker loaded")
+
+//const io = require("socket.io")
+const io = require("socket.io-client")
+const socket = io('http://localhost:3000')
+
+
+
 
 
 /*
