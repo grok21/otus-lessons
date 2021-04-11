@@ -5,7 +5,7 @@ const command: GluegunCommand = {
   run: async toolbox => {
     const { print } = toolbox
     print.info('\nWelcome to the e-library\nYou can create, remove and update books and journals here\nOf course, you can also print appropriate lists\nBut firstly you have to authorize...\n')
-    await toolbox.menu.showMenu();
+    await toolbox.menu.showMenu('');
   }
 }
 
