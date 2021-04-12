@@ -1,20 +1,13 @@
 import { GluegunMenuToolbox } from '@lenne.tech/gluegun-menu';
 import { GluegunCommand } from 'gluegun';
-//import { prompt } from 'enquirer';
-
-
 
 const command: GluegunCommand = {
   name: 'get',
-  description: 'get command',
+  description: 'you can get the list of all existing books or journals by this command',
   run: async (toolbox: GluegunMenuToolbox) => {
     const { print } = toolbox
     if (toolbox.fromMenu()) {
-      print.info('get Mafaka')
-      print.success('Bye')
-      
-      toolbox.foo()
-      await toolbox.menu.showMenu();  
+      await toolbox.menu.showMenu('get entities');  
     } else {
       print.error('It\'s forbidden!')
     }
