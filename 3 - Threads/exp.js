@@ -4,7 +4,6 @@ const EventEmitter = require('events')
 
 const myEmitter = new EventEmitter()
 
-const writeStream = fs.createWriteStream(path.join(__dirname, "/data_exp.txt"), {encoding: 'utf-8'})
 const readStream = fs.createReadStream(path.join(__dirname, "/data_exp.txt"), {encoding: 'utf-8'})
 
 let chunk = 'abc'
@@ -22,7 +21,9 @@ myEmitter.on('writeSortedDataToFiles', async () => {
   chunk = await readStream.read(2)
   readStream.destroy()
   console.log(chunk);
-  readStream.pause()
+  //readStream.pause()
+
+  const writeStream = fs.createWriteStream(path.join(__dirname, "/data_exp.txt"), {encoding: 'utf-8'})
 
   buff = []
   buff = buff.concat(chunk.split(''))
