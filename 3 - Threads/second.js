@@ -16,8 +16,8 @@ readStream1.on('readable', () => {})
 readStream2.on('readable', () => { myEmitter.emit('readPeaceOfData') })
 
 myEmitter.on('readPeaceOfData', async () => {
-  chunk1 = await readStream1.read(2)
-  chunk2 = await readStream2.read(2)
+  chunk1 = await readStream1.read(4)
+  chunk2 = await readStream2.read(4)
   console.log(chunk1 + ' ' + chunk2 + ' ' + buff);
   if (chunk1 === null || chunk2 === null) {
     myEmitter.emit('endOfCycle')
