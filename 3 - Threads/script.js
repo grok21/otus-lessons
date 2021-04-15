@@ -20,9 +20,6 @@ readStream0.on('readable', () => { myEmitter.emit('writeSortedDataToFiles') })
 myEmitter.on('writeSortedDataToFiles', async () => { 
 
   if (isSorted1) {
-    writeStream1.destroy()
-    writeStream2.destroy()
-    myEmitter.emit('readFromTwoFiles')
     return
   }
      
@@ -80,5 +77,8 @@ myEmitter.on('readFromTwoFiles', async () => {
 })
 
 writeStream1.on('close', () => {
+  writeStream1.destroy()
+  writeStream2.destroy()
+  myEmitter.emit('readFromTwoFiles')
   console.log('writeStream1 END');
 })
