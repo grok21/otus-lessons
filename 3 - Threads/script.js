@@ -19,8 +19,13 @@ readStream0.on('readable', () => { myEmitter.emit('writeSortedDataToFiles') })
 
 myEmitter.on('writeSortedDataToFiles', async () => { 
 
-  if (isSorted1)
-    return 
+  if (isSorted1) {
+    writeStream1.destroy()
+    writeStream2.destroy()
+    myEmitter.emit('readFromTwoFiles')
+    return
+  }
+     
 
   // Read and sort the first half of input data
   chunk = await readStream0.read(halfSize)
@@ -49,8 +54,6 @@ myEmitter.on('writeSortedDataToFiles', async () => {
   writeStream1.end()
   writeStream2.end()
 
-  myEmitter.emit('readFromTwoFiles')
-
   isSorted1 = true
 })
 
@@ -74,4 +77,8 @@ myEmitter.on('readFromTwoFiles', async () => {
   })
 
 
+})
+
+writeStream1.on('close', () => {
+  console.log('writeStream1 END');
 })
