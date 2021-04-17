@@ -75,7 +75,6 @@ myEmitter.on('readFromTwoFiles', async () => {
     
     if (isSorted2) 
       return 
-    
 
     chunk1 = readStream1.read(quarterSize)
     chunk2 = readStream2.read(quarterSize)
@@ -105,7 +104,7 @@ myEmitter.on('readFromTwoFiles', async () => {
         break
 
       if (!chunk1) {
-        writeStream3.write(`${buff2[i]}`)
+        writeStream3.write(`${buff2[j]}`)
         j++
         continue
       }
@@ -121,13 +120,17 @@ myEmitter.on('readFromTwoFiles', async () => {
         writeStream3.write(`${buff1[i]}`)
         i++
       } else {
-        writeStream3.write(`${buff2[i]}`)
+        writeStream3.write(`${buff2[j]}`)
         j++
       }
     }
 
     isSorted2 = true
     writeStream3.end()
+  })
+
+  writeStream3.on('close', () => {
     writeStream3.destroy()
+    console.log('The end');
   })
 })
