@@ -51,6 +51,12 @@ myEmitter.on('writeSortedDataToFiles', async () => {
   isSorted1 = true
 })
 
+writeStream1.on('close', () => {
+  writeStream1.destroy()
+  writeStream2.destroy()
+  myEmitter.emit('readFromTwoFiles')
+})
+
 myEmitter.on('readFromTwoFiles', async () => {
   const readStream1 = fs.createReadStream(path.join(__dirname, "/files/1.txt"), {encoding: 'utf-8'})
   const readStream2 = fs.createReadStream(path.join(__dirname, "/files/2.txt"), {encoding: 'utf-8'})
@@ -70,28 +76,54 @@ myEmitter.on('readFromTwoFiles', async () => {
     if (isSorted2) 
       return 
     
-    
 
     chunk1 = readStream1.read(quarterSize)
     chunk2 = readStream2.read(quarterSize)
+    buff1 = sortChunkOfData(buff1, chunk1)
+    buff2 = sortChunkOfData(buff2, chunk2)
     console.log(chunk1 + ' ' + chunk2);
+    let i = 0
+    let j = 0
 
-    while (chunk1 || chunk2) {
-      buff1 = sortChunkOfData(buff1, chunk1)
-      buff2 = sortChunkOfData(buff2, chunk2)
-      console.log(buff1);
-      console.log('AA');
+    while (true) {
+      
+      if (i === buff1.length) {
+        i = 0
+        chunk1 = readStream1.read(quarterSize)
+        if (chunk1)
+          buff1 = sortChunkOfData(buff1, chunk1)
+      }
+
+      if (j === buff2.length) {
+        j = 0
+        chunk2 = readStream1.read(quarterSize)
+        if (chunk2)
+          buff2 = sortChunkOfData(buff2, chunk2)
+      }
+
+      if (!(chunk1 || chunk2))
+        break
+
+      if (!chunk1) {
+        writeStream3.write(`${buff2[i]}`)
+        j++
+      }
+
+      if (!chunk2) {
+        writeStream3.write(`${buff1[i]}`)
+        i++
+      }
+
+
+      if (buff1[i] < buff2[j]) {
+        writeStream3.write(`${buff1[i]}`)
+        i++
+      } else {
+        writeStream3.write(`${buff2[i]}`)
+        j++
+      }
     }
 
-
+    isSorted2 = true
   })
-
-
-})
-
-writeStream1.on('close', () => {
-  writeStream1.destroy()
-  writeStream2.destroy()
-  myEmitter.emit('readFromTwoFiles')
-  console.log('writeStream1 END');
 })
