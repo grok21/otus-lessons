@@ -33,14 +33,12 @@ myEmitter.on('writeSortedDataToFiles', async () => {
 
   // Read and sort the first half of input data
   chunk0 = await readStream0.read(halfSize)
-  console.log(chunk0);
   buff0 = sortChunkOfData(buff0, chunk0)
   for (let i = 0; i < buff0.length; i++)
     writeStream1.write(`${buff0[i]}`)
 
   // Read and sort the first half of input data
   chunk0 = await readStream0.read(halfSize)
-  console.log(chunk0);
   buff0 = sortChunkOfData(buff0, chunk0)
   for (let i = 0; i < buff0.length; i++)
     writeStream2.write(`${buff0[i]}`)
@@ -80,7 +78,6 @@ myEmitter.on('readFromTwoFiles', async () => {
     chunk2 = readStream2.read(quarterSize)
     buff1 = sortChunkOfData(buff1, chunk1)
     buff2 = sortChunkOfData(buff2, chunk2)
-    console.log(chunk1 + ' ' + chunk2);
     let i = 0
     let j = 0
 
@@ -114,7 +111,6 @@ myEmitter.on('readFromTwoFiles', async () => {
         i++
         continue
       }
-
 
       if (buff1[i] < buff2[j]) {
         writeStream3.write(`${buff1[i]}`)
