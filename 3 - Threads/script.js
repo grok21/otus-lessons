@@ -16,9 +16,11 @@ let buff0 = []
 let isSorted1 = false
 
 function sortChunkOfData (buffer, chunkk) {
+  buffer = []
   buffer = buffer.concat(chunkk.split(''))
   buffer.forEach((element, i, a) => a[i] = Number.parseInt(element))
   buffer.sort((a, b) => a - b)
+  return buffer
 }
 
 readStream0.on('readable', () => { myEmitter.emit('writeSortedDataToFiles') })
@@ -32,30 +34,16 @@ myEmitter.on('writeSortedDataToFiles', async () => {
   // Read and sort the first half of input data
   chunk0 = await readStream0.read(halfSize)
   console.log(chunk0);
-  
-  sortChunkOfData(buff0, chunk0)
-
-  /*
-  buff0 = []
-  buff0 = buff.concat(chunk.split(''))
-  buff.forEach((element, i, a) => a[i] = Number.parseInt(element))
-  buff.sort((a, b) => a - b)
-  */
-
+  buff0 = sortChunkOfData(buff0, chunk0)
   for (let i = 0; i < buff0.length; i++)
     writeStream1.write(`${buff0[i]}`)
 
   // Read and sort the first half of input data
   chunk0 = await readStream0.read(halfSize)
   console.log(chunk0);
-  
-  buff = []
-  buff = buff.concat(chunk.split(''))
-  buff.forEach((element, i, a) => a[i] = Number.parseInt(element))
-  buff.sort((a, b) => a - b)
-
-  for (let i = 0; i < buff.length; i++)
-    writeStream2.write(`${buff[i]}`)
+  buff0 = sortChunkOfData(buff0, chunk0)
+  for (let i = 0; i < buff0.length; i++)
+    writeStream2.write(`${buff0[i]}`)
 
   writeStream1.end()
   writeStream2.end()
@@ -89,8 +77,8 @@ myEmitter.on('readFromTwoFiles', async () => {
     console.log(chunk1 + ' ' + chunk2);
 
     while (chunk1 || chunk2) {
-      sortChunkOfData(buff1, chunk1)
-      sortChunkOfData(buff2, chunk2)
+      buff1 = sortChunkOfData(buff1, chunk1)
+      buff2 = sortChunkOfData(buff2, chunk2)
       console.log(buff1);
       console.log('AA');
     }
