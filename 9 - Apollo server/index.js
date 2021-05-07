@@ -5,6 +5,7 @@ const {
   GraphQLObjectType,
   GraphQLNonNull,
   GraphQLSchema,
+  GraphQLInputObjectType,
   GraphQLInt
 } = require('graphql')
 
@@ -77,7 +78,23 @@ const query = new GraphQLObjectType({
       authors: {
         type: new GraphQLList(AuthorType),
         description: "Authors list",
-        resolve: function () {
+        args: {
+          filter: {
+            type: new GraphQLInputObjectType({
+              name: 'Authorsfilter',
+              fields: () => ({
+                id: { type: GraphQLString },
+                name: { type: GraphQLString }
+              })
+            })
+          }
+        },
+        resolve: function (root, args) {
+          //if (args.filter.name) {
+          //  console.log(111);
+          //  return authors.filter(a => a.name.indexOf(args.filter.name) !== -1)
+          //}
+          console.log(222);
           return authors
         }
       },
@@ -85,8 +102,7 @@ const query = new GraphQLObjectType({
         type: AuthorType,
         args: { id: { type: new GraphQLNonNull(GraphQLString)}},
         resolve: function (root, args) {
-          console.log(args);
-          console.log(root);
+          console.log(args)
           return authors.find(a => a.id === args.id)
         }
       },
@@ -108,7 +124,36 @@ const query = new GraphQLObjectType({
   }
 })
 
-const schema = new GraphQLSchema( { query } )
+
+const mutation = new GraphQLObjectType({
+  name: "OurAppRootMutation",
+  description: "...",
+  fields: () => {
+    return {
+      author: {
+        type: AuthorType,
+        args: {
+          author: {
+            type: new GraphQLNonNull(new GraphQLInputObjectType({
+              name: 'AuthorCreate',
+              fields: () => ({
+                id: { type: new GraphQLNonNull(GraphQLString) },
+                name: { type: new GraphQLNonNull(GraphQLString) }
+              })
+            })
+          )}
+        },
+        resolve: function (root, args) {
+          authors.push(args.author)
+          console.log(args);
+          return args.author
+        }
+      }
+    }
+  }
+})
+
+const schema = new GraphQLSchema( { query, mutation } )
 
 const app = express()
 app.use('/', graphqlHTTP({
