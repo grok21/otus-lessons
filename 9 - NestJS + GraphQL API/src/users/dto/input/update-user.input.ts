@@ -6,5 +6,5 @@ export class UpdateUserInput {
   userId: number; 
   
   @Field(() => Int)
-  age?: number;
+  age: number;
 }
