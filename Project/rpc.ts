@@ -1,11 +1,15 @@
-import keys from './keys/keys'
-import express from 'express';
-import exphbs from 'express-handlebars';
-import path from 'path';
+//import keys from './keys/keys'
+import * as express from 'express';
+import * as exphbs from 'express-handlebars';
+import * as path from 'path';
 import Web3 from 'web3';
 
-console.log(keys);
+import homeRoutes from './routes/home';
+import walletRoutes from './routes/wallet';
+import authRoutes from './routes/auth';
 
+
+//console.log(keys);
 
 const app = express();
 
@@ -23,10 +27,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
+// Routes
+app.use('/home', homeRoutes);
+app.use('/wallet', walletRoutes);
+app.use('/auth', authRoutes);
+
 const PORT = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-  //res.send('Hello World!')
   res.render('index', {
     title: 'Main page',
     isHome: true
@@ -34,9 +42,6 @@ app.get('/', (req, res) => {
 })
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}...`));
-
-console.log('CREATED');
-
 
 
 //const web3: any = new Web3("http://127.0.0.1:8545");

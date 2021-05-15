@@ -1,0 +1,16 @@
+<h1>Wallet</h1>
+
+<form action="/auth/login" method="POST">
+  <div class="input-field">
+    <input id="publicKey" name="publicKey" type="password" class="publicKey" required min="1">
+    <label for="publicKey">Enter receiver's public key</label>
+    <span class="helper-text" data-error="Minimum 1 symbol"></span>
+  </div>
+  <div class="input-field">
+    <input id="amount" name="amount" type="password" class="amount" required min="1">
+    <label for="amount">Enter ETH amount</label>
+    <span class="helper-text" data-error="Minimum 1 symbol"></span>
+  </div>
+        
+  <button class="btn btn-primary" type="submit">Send</button>
+</form>

@@ -5,8 +5,8 @@
     "removeComments": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "outDir": "dist",
-    "esModuleInterop": true
+    "outDir": "dist"
+    //"esModuleInterop": true
   },
   "include": [
     "src/**/*"
