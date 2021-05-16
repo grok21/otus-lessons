@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as exphbs from 'express-handlebars';
 import * as path from 'path';
 import * as cookieParser from 'cookie-parser';
-import Web3 from 'web3';
+import * as mongoose from 'mongoose';
 import { keys } from './keys/keys';
 
 import homeRoutes from './routes/home';
@@ -13,7 +13,7 @@ import authRoutes from './routes/auth';
 console.log(keys);
 
 const app = express();
-app.use(cookieParser())
+app.use(cookieParser('secret'))
 
 const hbs = exphbs.create({
   defaultLayout: 'main',
@@ -43,9 +43,17 @@ app.get('/', (req, res) => {
   });
 })
 
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}...`));
+async function start() {
+  try {
+    await mongoose.connect('mongodb+srv://vadim:qwerty123@cluster0.5thla.mongodb.net/users?retryWrites=true&w=majority', {
+      useNewUrlParser: true, 
+      useUnifiedTopology: true, 
+      useFindAndModify: false
+    })
+    app.listen(PORT, () => console.log(`Server is running on port ${PORT}...`));
+  } catch (e) {
+    console.log(e);
+  } 
+}
 
-
-//const web3: any = new Web3("http://127.0.0.1:8545");
-
-//web3.eth.getAccounts().then(a => console.log(a))
+start();

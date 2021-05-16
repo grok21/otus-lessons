@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { users } from '../keys/users';
+import { User } from '../models/user';
 
 const router = Router();
 
@@ -19,6 +20,26 @@ router.post('/login', (req, res) => {
   } else {
     console.log('Not OK');
     res.redirect('/auth#login');
+  }
+})
+
+router.post('/register', async (req, res) => {
+  console.log(req.body);
+
+  try {
+    const user = new User({
+      fullName: req.body.fullName, 
+      email: req.body.email, 
+      password: req.body.password,
+      publicKey: users[0].publicKey,
+      privateKey: users[0].privateKey,
+      transactions: []
+    })
+
+    await user.save();
+    res.redirect('/');
+  } catch (e) {
+    console.log(e);
   }
 })
 

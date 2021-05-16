@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { users } from '../keys/users';
+import { web3 } from '../keys/web3'
 
 const router = Router();
 
@@ -15,6 +16,7 @@ router.get('/', (req, res) => {
     balance: users[0].balance
   })
   console.log(req.cookies);
+  web3.eth.getAccounts().then(a => console.log(a))
   
 })
 

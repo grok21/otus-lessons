@@ -5,7 +5,7 @@
     "removeComments": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "outDir": "dist"
+    "outDir": "dist",
     //"esModuleInterop": true
   },
   "include": [
