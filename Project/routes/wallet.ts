@@ -5,11 +5,9 @@ const router = Router();
 router.get('/', (req, res) => {
   res.render('wallet', {
     title: 'Wallet',
-    isWallet: true
+    isWallet: true, 
+    isAuthenticated: req.cookies.userInfo.isAuthenticated
   })
-  //res.clearCookie('isAuth');
-  //res.clearCookie('token');
-  res.cookie('userInfo', { isAuth: false, age: 52, info: 'HAHAHA'});
 })
 
 export default router;

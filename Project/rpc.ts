@@ -1,16 +1,16 @@
-//import keys from './keys/keys'
 import * as express from 'express';
 import * as exphbs from 'express-handlebars';
 import * as path from 'path';
 import * as cookieParser from 'cookie-parser';
 import Web3 from 'web3';
+import { keys } from './keys/keys';
 
 import homeRoutes from './routes/home';
 import walletRoutes from './routes/wallet';
 import authRoutes from './routes/auth';
 
 
-//console.log(keys);
+console.log(keys);
 
 const app = express();
 app.use(cookieParser())
@@ -39,7 +39,7 @@ const PORT = process.env.PORT || 3000;
 app.get('/', (req, res) => {
   res.render('index', {
     title: 'Main page',
-    isAuthenticated: req.cookies.userInfo.isAuthenticated
+    isAuthenticated: req.cookies.userInfo ? req.cookies.userInfo.isAuthenticated : false
   });
 })
 

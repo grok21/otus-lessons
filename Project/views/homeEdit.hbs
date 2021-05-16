@@ -1,15 +1,16 @@
 <h1>Edit your profile</h1>
 
 <div class="row">
-  <div class="input-field">
-    <input value="Vadim Zhukov" id="name" type="text" >
-    <label for="name">Name</label>
-  </div>
-  <p>&nbsp;</p>
-  <div class="input-field">
-    <input value="vadim@gmail.com" id="e-mail" type="text" >
-    <label for="e-mail">E-mail</label>
-  </div>
-  <a class="btn" href="/home/edit">Изменить</a>
-
+  <form action="/home/edit" method="POST">
+    <div class="input-field">
+      <input id="fullNname" name="fullName" type="text" value="{{fullName}}" required min="1">
+      <label for="fullName">Full name</label>
+    </div>
+    <p>&nbsp;</p>
+    <div class="input-field">
+      <input id="email" name="email" type="text" value="{{email}}" required min="1">
+      <label for="email">E-mail</label>
+    </div>
+    <button class="btn btn-primary" type="submit">Save changes</button>
+  </form>
 </div>
