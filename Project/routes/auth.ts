@@ -11,21 +11,26 @@ router.get('/', (req, res) => {
   });
 })
 
-router.post('/login', (req, res) => {
-  console.log(req.body);
-  if (req.body.email === users[0].email && req.body.password === users[0].password) {
-    console.log('OK');
-    res.cookie('userInfo', { isAuthenticated: true, age: 52, info: 'HAHAHA'});
-    res.redirect('/home');
-  } else {
-    console.log('Not OK');
-    res.redirect('/auth#login');
-  }
+router.post('/login', async (req, res) => {
+  try {
+    const candidate = await User.findOne({ email: req.body.email });
+    console.log(candidate);
+    
+    if (candidate) {
+      if (candidate['password'] === req.body.password) {
+        res.cookie('userInfo', { isAuthenticated: true});
+        res.redirect('/home');
+      } else {
+        res.redirect('/auth#login');
+      }
+      
+    }
+  } catch(e) {
+    console.log(e);
+  } 
 })
 
 router.post('/register', async (req, res) => {
-  console.log(req.body);
-
   try {
     const user = new User({
       fullName: req.body.fullName, 
