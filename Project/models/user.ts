@@ -22,7 +22,7 @@ const userSchema = new Schema({
     required: true
   },
   transactions: [{
-    Hash: String,
+    hash: String,
     from: String,
     to: String,
     value: Number

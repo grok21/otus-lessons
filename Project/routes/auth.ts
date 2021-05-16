@@ -14,16 +14,14 @@ router.get('/', (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const candidate = await User.findOne({ email: req.body.email });
-    console.log(candidate);
     
     if (candidate) {
       if (candidate['password'] === req.body.password) {
-        res.cookie('userInfo', { isAuthenticated: true});
+        res.cookie('userInfo', { isAuthenticated: true, userEmail: candidate['email']});
         res.redirect('/home');
       } else {
         res.redirect('/auth#login');
       }
-      
     }
   } catch(e) {
     console.log(e);
