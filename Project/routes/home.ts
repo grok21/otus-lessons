@@ -7,6 +7,15 @@ router.get('/', (req, res) => {
     title: 'Home',
     isHome: true
   })
+  console.log(req.cookies);
+  
+})
+
+router.get('/edit', (req, res) => {
+  res.render('homeEdit', {
+    title: 'Home',
+    isHome: true
+  })
 })
 
 export default router;

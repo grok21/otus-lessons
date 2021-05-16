@@ -3,18 +3,23 @@
       <a href="/" class="brand-logo">&nbsp;Crypto wallet</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         
-        {{#if isHome}}
-          <li class="active"><a href="/home">Home</a></li>
-        {{else}}
-          <li><a href="/home">Home</a></li>
-        {{/if}}
+        {{#if isAuthenticated}}
+          {{#if isHome}}
+            <li class="active"><a href="/home">Home</a></li>
+          {{else}}
+            <li><a href="/home">Home</a></li>
+          {{/if}}
 
-        {{#if isWallet}}
-          <li class="active"><a href="/wallet">Wallet</a></li>
+          {{#if isWallet}}
+            <li class="active"><a href="/wallet">Wallet</a></li>
+          {{else}}
+            <li><a href="/wallet">Wallet</a></li>
+          {{/if}}
+          <li><a href="/auth/logout">Sign out</a></li>
         {{else}}
-          <li><a href="/wallet">Wallet</a></li>
+          <li><a href="/auth">Sign in</a></li>
         {{/if}}
-
+        
       </ul>
     </div>
   </nav>

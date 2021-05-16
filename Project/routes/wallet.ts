@@ -7,6 +7,9 @@ router.get('/', (req, res) => {
     title: 'Wallet',
     isWallet: true
   })
+  //res.clearCookie('isAuth');
+  //res.clearCookie('token');
+  res.cookie('userInfo', { isAuth: false, age: 52, info: 'HAHAHA'});
 })
 
 export default router;

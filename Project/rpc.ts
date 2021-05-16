@@ -2,6 +2,7 @@
 import * as express from 'express';
 import * as exphbs from 'express-handlebars';
 import * as path from 'path';
+import * as cookieParser from 'cookie-parser';
 import Web3 from 'web3';
 
 import homeRoutes from './routes/home';
@@ -12,6 +13,7 @@ import authRoutes from './routes/auth';
 //console.log(keys);
 
 const app = express();
+app.use(cookieParser())
 
 const hbs = exphbs.create({
   defaultLayout: 'main',
@@ -37,7 +39,7 @@ const PORT = process.env.PORT || 3000;
 app.get('/', (req, res) => {
   res.render('index', {
     title: 'Main page',
-    isHome: true
+    isAuthenticated: req.cookies.userInfo.isAuthenticated
   });
 })
 
