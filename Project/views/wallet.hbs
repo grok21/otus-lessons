@@ -1,5 +1,5 @@
 <h1>Wallet</h1>
-<h5>Your balance: 250 ETH</h5>
+<h5>Your balance: {{balance}} ETH</h5>
 
 <form action="/wallet" method="POST">
   <div class="input-field">
@@ -10,7 +10,9 @@
     <input id="value" name="value" type="text" required min="1">
     <label for="value">Enter ETH amount</label>
   </div>  
+  
   <button class="btn btn-primary" type="submit">Send</button>
+  <p>Comission: {{comission}} ETH</p>
 </form>
 
 <h1>Transactions history</h1>
@@ -24,9 +26,9 @@
                 <span class="card-title">
                     Hash: <small>{{hash}}</small>
                 </span>
-                <p>From: {{from}}</p>
-                <p>To: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{to}}</p>
-                <p>Value: {{value}}</p>
+                <p>From: &nbsp;&nbsp;{{from}}</p>
+                <p>To: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{to}}</p>
+                <p>Value: {{value}} ETH</p>
               </div>
             </div>
           </div>
