@@ -3,14 +3,9 @@ import * as exphbs from 'express-handlebars';
 import * as path from 'path';
 import * as cookieParser from 'cookie-parser';
 import * as mongoose from 'mongoose';
-import { keys } from './keys/keys';
-
 import homeRoutes from './routes/home';
 import walletRoutes from './routes/wallet';
 import authRoutes from './routes/auth';
-
-
-console.log(keys);
 
 const app = express();
 app.use(cookieParser('secret'))

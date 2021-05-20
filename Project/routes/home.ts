@@ -1,37 +1,57 @@
 import { Router } from 'express';
-import { users } from '../keys/users';
-import { web3 } from '../keys/web3'
+import { User } from '../models/user';
+import { web3 } from '../keys/web3';
+import { auth } from '../middleware/auth';
 
 const router = Router();
 
-router.get('/', (req, res) => {
-  res.render('home', {
-    title: 'Home',
-    isHome: true, 
-    isAuthenticated: req.cookies.userInfo.isAuthenticated, 
-    privateKey: users[0].privateKey, 
-    publicKey: users[0].publicKey, 
-    email: users[0].email,
-    fullName: users[0].fullName,
-    balance: users[0].balance
-  })
-  console.log(req.cookies);
-  web3.eth.getAccounts().then(a => console.log(a))
+router.get('/', auth, async (req, res) => {
+  try {
+    const candidate = await User.findOne({ email: req.cookies.userInfo.userEmail }).lean();
+    let balance: string = web3.utils.fromWei(await web3.eth.getBalance(candidate['publicKey']));
+    res.render('home', {
+      title: 'Home',
+      isHome: true, 
+      isAuthenticated: req.cookies.userInfo.isAuthenticated, 
+      privateKey: candidate['privateKey'], 
+      publicKey: candidate['publicKey'], 
+      email: candidate['email'],
+      fullName: candidate['fullName'],
+      balance: balance
+    })
+  } catch (e) {
+    console.log(e);
+  }
+})
+
+router.get('/edit', auth, async (req, res) => {
+  try {
+    const candidate = await User.findOne({ email: req.cookies.userInfo.userEmail }).lean();
+    
+    res.render('homeEdit', {
+      title: 'Home',
+      isHome: true,
+      isAuthenticated: req.cookies.userInfo.isAuthenticated,
+      email: candidate['email'],
+      fullName: candidate['fullName']
+    })
+  } catch (e) {
+    console.log(e);
+  }
+})
+
+router.post('/edit', auth, async (req, res) => {
+  try {
+    const candidate = await User.findOne({ email: req.cookies.userInfo.userEmail });
+    
+    candidate['fullName'] = req.body.fullName;
+    candidate['email'] = req.body.email;
+
+    await candidate.save()
+  } catch (e) {
+    console.log(e);
+  }
   
-})
-
-router.get('/edit', (req, res) => {
-  res.render('homeEdit', {
-    title: 'Home',
-    isHome: true,
-    isAuthenticated: req.cookies.userInfo.isAuthenticated,
-    email: users[0].email,
-    fullName: users[0].fullName
-  })
-})
-
-router.post('/edit', (req, res) => {
-  console.log('Body: ', req.body);
   res.redirect('/home');
 })
 

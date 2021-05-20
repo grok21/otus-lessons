@@ -1,8 +1,11 @@
 import { Router } from 'express';
-import { users } from '../keys/users';
+//import { users } from '../keys/users';
 import { User } from '../models/user';
+import { keys } from '../keys/keys';
+
 
 const router = Router();
+let counter: number = 0;
 
 router.get('/', (req, res) => {
   res.render('login', {
@@ -30,16 +33,19 @@ router.post('/login', async (req, res) => {
 
 router.post('/register', async (req, res) => {
   try {
+    console.log(keys);
+    
     const user = new User({
       fullName: req.body.fullName, 
       email: req.body.email, 
       password: req.body.password,
-      publicKey: users[0].publicKey,
-      privateKey: users[0].privateKey,
+      publicKey: keys.public[counter],
+      privateKey: keys.private[counter],
       transactions: []
     })
 
     await user.save();
+    counter++;
     res.redirect('/');
   } catch (e) {
     console.log(e);

@@ -1,18 +1,15 @@
 import { Router } from 'express';
-import { web3 } from '../keys/web3';
-import { users } from '../keys/users';
 import { User } from '../models/user';
-
+import { web3 } from '../keys/web3';
+import { auth } from '../middleware/auth';
 
 const router = Router();
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
     const candidate = await User.findOne({ email: req.cookies.userInfo.userEmail }).lean();
-    let balance = await web3.eth.getBalance(candidate['publicKey']);
-    balance = web3.utils.fromWei(balance);
-    let comission = await web3.eth.getGasPrice();
-    comission = web3.utils.fromWei(comission);
+    let balance: string = web3.utils.fromWei(await web3.eth.getBalance(candidate['publicKey']));
+    let comission: string = web3.utils.fromWei(await web3.eth.getGasPrice());
 
     if (candidate) {
       res.render('wallet', {
@@ -32,7 +29,7 @@ router.get('/', async (req, res) => {
   }  
 })
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   console.log('Body: ', req.body);
   
   try {
