@@ -1,8 +1,7 @@
 import { Router } from 'express';
-//import { users } from '../keys/users';
 import { User } from '../models/user';
 import { keys } from '../keys/keys';
-
+import * as bcrypt from 'bcrypt';
 
 const router = Router();
 let counter: number = 0;
@@ -19,7 +18,7 @@ router.post('/login', async (req, res) => {
     const candidate = await User.findOne({ email: req.body.email });
     
     if (candidate) {
-      if (candidate['password'] === req.body.password) {
+      if (bcrypt.compare(req.body.password, candidate['password'])) {
         res.cookie('userInfo', { isAuthenticated: true, userEmail: candidate['email']});
         res.redirect('/home');
       } else {
@@ -33,12 +32,12 @@ router.post('/login', async (req, res) => {
 
 router.post('/register', async (req, res) => {
   try {
-    console.log(keys);
+    const hashPassword: string = await bcrypt.hash(req.body.password, 10);
     
     const user = new User({
       fullName: req.body.fullName, 
       email: req.body.email, 
-      password: req.body.password,
+      password: hashPassword,
       publicKey: keys.public[counter],
       privateKey: keys.private[counter],
       transactions: []
@@ -56,6 +55,5 @@ router.get('/logout', (req, res) => {
   res.clearCookie('userInfo');
   res.redirect('/');
 })
-
 
 export default router;
