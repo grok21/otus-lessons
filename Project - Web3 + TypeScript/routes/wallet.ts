@@ -1,13 +1,14 @@
 import { Router } from 'express';
 import { User } from '../models/user';
-import { web3 } from '../keys/web3';
+import { web3 } from '../global/web3';
 import { auth } from '../middleware/auth';
+import { UserType } from '../types/types';
 
 const router = Router();
 
 router.get('/', auth, async (req, res) => {
   try {
-    const candidate = await User.findOne({ email: req.cookies.userInfo.userEmail }).lean();
+    const candidate: UserType = await User.findOne({ email: req.cookies.userInfo.userEmail }).lean();
     let balance: string = web3.utils.fromWei(await web3.eth.getBalance(candidate['publicKey']));
     let comission: string = web3.utils.fromWei(await web3.eth.getGasPrice());
 
@@ -17,12 +18,12 @@ router.get('/', auth, async (req, res) => {
         isWallet: true, 
         isAuthenticated: req.cookies.userInfo.isAuthenticated,
         balance: balance,
-        transactions: candidate['transactions'],
+        transactions: candidate.transactions,
         comission: comission
       })
     } else {
       console.log('Sth gone wrong...');
-      res.redirect('/')
+      res.redirect('/');
     }
   } catch (e) {
     console.log(e);
@@ -30,8 +31,6 @@ router.get('/', auth, async (req, res) => {
 })
 
 router.post('/', auth, async (req, res) => {
-  console.log('Body: ', req.body);
-  
   try {
     const candidate = await User.findOne({ email: req.cookies.userInfo.userEmail });
     
@@ -42,7 +41,6 @@ router.post('/', auth, async (req, res) => {
         value: web3.utils.toWei(req.body.value)
       })
       .on('transactionHash', async (hash) => {
-        console.log(hash);
         candidate['transactions'].push({
           hash: hash,
           from: candidate['publicKey'],
@@ -57,7 +55,7 @@ router.post('/', auth, async (req, res) => {
       res.redirect('/wallet')
     } else {
       console.log('Sth gone wrong...');
-      res.redirect('/')
+      res.redirect('/');
     }
   } catch (e) {
     console.log(e);

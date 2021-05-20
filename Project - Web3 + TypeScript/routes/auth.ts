@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { User } from '../models/user';
-import { keys } from '../keys/keys';
+import { keys } from '../global/keys';
 import * as bcrypt from 'bcrypt';
 
 const router = Router();
@@ -24,6 +24,8 @@ router.post('/login', async (req, res) => {
       } else {
         res.redirect('/auth#login');
       }
+    } else {
+      res.redirect('/auth#login');
     }
   } catch(e) {
     console.log(e);
@@ -45,7 +47,7 @@ router.post('/register', async (req, res) => {
 
     await user.save();
     counter++;
-    res.redirect('/');
+    res.redirect('/auth#login');
   } catch (e) {
     console.log(e);
   }
