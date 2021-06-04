@@ -1,0 +1,12 @@
+export const keys = {
+  private: [
+    '0x5d10264294cdfaba65e22e8084ab2b8233442a9ee74c8bbd05e7a19472e7dbb1',
+    '0x3b8c6a5b0a451f7e55947ed6745e261af8b898b2502daec11687f52b8bbec21a',
+    '0x342cd3a517ec9231bedaffbcde6927fa3a9a7b12c038c79bcac8c270b220b133'
+  ],
+  public: [
+    '0x61a0d5261Ef179e8623CfC0eE018cd0F28f25f23',
+    '0xE23FE7FD1DaADcBEeBDc05970F743db162919DfB',
+    '0x5AB8736c71Aa0F71766409e37F7eD0BE93112CF0'
+  ]
+}

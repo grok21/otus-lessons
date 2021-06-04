@@ -1,0 +1,39 @@
+<h1>Wallet</h1>
+<h5>Your balance: {{balance}} ETH</h5>
+
+<form action="/wallet" method="POST">
+  <div class="input-field">
+    <input id="publicKey" name="publicKey" type="text" required min="1">
+    <label for="publicKey">Enter receiver's public key</label>
+  </div>
+  <div class="input-field">
+    <input id="value" name="value" type="text" required min="1">
+    <label for="value">Enter ETH amount</label>
+  </div>  
+  
+  <button class="btn btn-primary" type="submit">Send</button>
+  <p>Comission: {{comission}} ETH</p>
+</form>
+
+<h1>Transactions history</h1>
+
+{{#if transactions.length}}
+    {{#each transactions}}
+        <div>
+          <div class="col s6 offset-s3">
+            <div class="card">
+              <div class="card-content">
+                <span class="card-title">
+                    Hash: <small>{{hash}}</small>
+                </span>
+                <p>From: &nbsp;&nbsp;{{from}}</p>
+                <p>To: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{to}}</p>
+                <p>Value: {{value}} ETH</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    {{/each}}
+{{else}}
+    <p>There are no transactions yet...</p>
+{{/if}}
